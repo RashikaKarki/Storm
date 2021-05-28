@@ -17,6 +17,10 @@ class Lexer:
         self.pos += 1
         self.cur_char = self.text[self.pos] if self.pos < len(self.text) else None
 
+    def __decrement(self):
+        self.pos -= 1
+        self.cur_char = self.text[self.pos] if self.pos < 0 else None
+
     def make_tokens(self):
         list_tokens = []
         self.__increment()
@@ -50,6 +54,7 @@ class Lexer:
             elif char_type == "DIGIT":
                 num_str += str(self.cur_char)
             else:
+                self.__decrement()
                 break
             self.__increment()
         return get_number_type(num_str), num_str

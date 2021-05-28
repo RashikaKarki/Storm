@@ -1,5 +1,4 @@
-from Storm import error
-from Storm.lexer import Lexer
+from Storm import Lexer
 
 def run(text):
     lexer = Lexer(text)

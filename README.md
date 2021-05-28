@@ -1,2 +1,4 @@
 # Storm
-A Compiler made from scratch using Python
+
+
+Storm is a basic programming language implemented with the help of Python.

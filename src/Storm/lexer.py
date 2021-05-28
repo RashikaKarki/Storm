@@ -1,4 +1,3 @@
-from typing import Text
 from Storm import token
 
 

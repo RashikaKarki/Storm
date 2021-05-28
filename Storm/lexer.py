@@ -25,7 +25,7 @@ class Lexer:
                 self.__increment()
             else:
                 token_type = get_type(self.cur_char)
-                if token_type != 'DIGIT':
+                if token_type != 'DIGIT' and token_type != None:
                     list_tokens.append(Token(token_type, self.cur_char))
                     self.__increment()
                 elif token_type == 'DIGIT':
@@ -33,8 +33,8 @@ class Lexer:
                     list_tokens.append(Token(token_type, value))
                     self.__increment()
                 else:
-                    self.__increment()
                     return [], ErrorIllegalChar(self.cur_char)
+                    
 
         return list_tokens, None
 

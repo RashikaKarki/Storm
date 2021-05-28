@@ -4,7 +4,7 @@ class Error:
         self. error_details = error_details
 
     def __repr__(self) -> str:
-        if self.error_details == None: return f'{self.error_name} \n Details : {self.error_details}'
+        if self.error_details != None: return f'{self.error_name} \n Details : {self.error_details}'
         return f'{self.error_name}'
 
 

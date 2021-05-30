@@ -1,4 +1,5 @@
-from Storm import Lexer
+from Parser import Parser
+from Lexer import Lexer
 from bgcolors import Bcolors
 
 def run(text):
@@ -8,6 +9,10 @@ def run(text):
     if error:
         print(f"{Bcolors.FAIL}ERROR{Bcolors.ENDC}")
         print(f"{Bcolors.FAIL}{error}{Bcolors.ENDC}")
+    if len(tokens) >= 1:
+        parser = Parser(tokens)
+        ast = parser.parse()
+        print(ast)
 
 
 while True:

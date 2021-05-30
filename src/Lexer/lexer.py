@@ -1,11 +1,11 @@
-from Storm import token
+from Lexer import token
 
 
-from Storm.type import get_number_type, get_type 
-from Storm.token import Token
-from Storm.type import get_type
-from Storm.error import ErrorIllegalChar
-from Storm.position import Position
+from Lexer.type import get_number_type, get_type 
+from Lexer.token import Token
+from Lexer.type import get_type
+from Error import ErrorIllegalChar
+from Lexer.position import Position
 
 class Lexer:
     def __init__(self, text, file_name = None) -> None:
@@ -22,16 +22,19 @@ class Lexer:
         list_tokens = []
         self.__increment()
         while self.cur_char != None:
-            if self.cur_char in " \t\n":
+            if self.cur_char in " \t":
+                self.__increment()
+            elif self.cur_char in "\n":
+                list_tokens.append("\n")
                 self.__increment()
             else:
                 token_type = get_type(self.cur_char)
                 if token_type != 'DIGIT' and token_type != None:
-                    list_tokens.append(Token(token_type, self.cur_char))
+                    list_tokens.append(Token(self.cur_char))
                     self.__increment()
                 elif token_type == 'DIGIT':
                     token_type, value = self.make_numbers()
-                    list_tokens.append(Token(token_type, value))
+                    list_tokens.append(Token(value, token_type))
                 else:
                     return [], ErrorIllegalChar(self.file_name, self.pos.line_number, f'Invalid character \'{self.cur_char}\' found')
         return list_tokens, None

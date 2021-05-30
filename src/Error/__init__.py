@@ -1,0 +1,1 @@
+from Error.error import ErrorIllegalChar

@@ -17,4 +17,5 @@ class Error:
 class ErrorIllegalChar(Error):
     def __init__(self,file_name, line_number, details) -> None:
         super().__init__(file_name, line_number,'Illegal Character Detected',  details)
+
         

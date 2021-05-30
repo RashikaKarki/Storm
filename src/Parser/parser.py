@@ -4,10 +4,10 @@ Check if the token match our grammar and parse the tokens
 
 from os import terminal_size
 from Parser.number import BinaryOperationNode, NumberNode
-
+from Lexer import Lexer
 
 class Parser:
-    def __init__(self, tokens, index=0) -> None:
+    def __init__(self, tokens, index = 0) -> None:
         self.tokens = tokens
         self.index = index
         self.current_token = tokens[index]
@@ -24,7 +24,6 @@ class Parser:
 
     def factor(self):
         token = self.current_token
-        
         if token.type in ['INT','FLOAT']:
             self.increment()
             return NumberNode(token)
@@ -69,7 +68,36 @@ class Parser:
             left = (((1.5 * 2.5) * 3) + (7.8 * 3)) 
         """
         left = func()
+
+        # To handle cases with enclosed parenthesis
+        if str(left) == "(":
+            left = str(left)
+            count = 0
+            while True:
+                self.increment()
+                print(self.current_token)
+                if str(self.current_token) == ")" and count == 0:
+                    self.increment()
+                    break
+                elif str(self.current_token) == "(":
+                    count += 1
+                elif str(self.current_token) == ")":
+                    count -= 1
+                else:
+                    pass
+                left += str(self.current_token)
+            left += ")"
+            plain_left = left.replace("INT", "").replace("FLOAT","").replace(":","").replace(" ","")
+            lexer = Lexer(plain_left[1:-1])
+            tokens, error = lexer.make_tokens()
+            
+            parser = Parser(tokens)
+            left = parser.parse()
+            
+
         while str(self.current_token) in operations:
+            if self.current_token == "EOL":
+                break
             operator = self.current_token
             self.increment()
             right = func()

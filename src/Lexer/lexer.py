@@ -37,6 +37,7 @@ class Lexer:
                     list_tokens.append(Token(value, token_type))
                 else:
                     return [], ErrorIllegalChar(self.file_name, self.pos.line_number, f'Invalid character \'{self.cur_char}\' found')
+        list_tokens.append("EOL")
         return list_tokens, None
 
     def make_numbers(self):

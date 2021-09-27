@@ -1,0 +1,8 @@
+# Commands to start on workspace startup
+image: python:3.8.10-slim
+tasks:
+  - init: pip install -r requirements.txt
+# Ports to expose on workspace startup
+ports:
+  - port: 5000
+    onOpen: open-preview
